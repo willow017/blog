@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/sort.css">
+{% endblock %}
+
+{% block main %}
+<div class="article_sort">
+    <div class="top">
+        <span @click="switch_top('qianrushi')">嵌入式</span>
+        <span @click="switch_top('python')">Python库</span>
+        <span @click="switch_top('moyu')">摸鱼</span>
+    </div>
+    <div class="article_zt">
+
+        <ul v-show="this_category === 'qianrushi'">
+            {% for qianrushi in qianrushi_list %}
+            <li>
+                <div class="left">
+                    <div>
+                        <img src="{{ qianrushi.cover.url.url }}" alt="">
+                    </div>
+                </div>
+                <div class="right">
+                    <h2><a href="/article/{{ qianrushi.nid }}/">{{ qianrushi.title }}</a></h2>
+                    <p>{{ qianrushi.abstract }}</p>
+                    <div class="article_info">
+                        <span>
+                            <i class="far fa-clock"></i>{{ qianrushi.create_date|date:'Y-m-d' }}
+                        </span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>{{ qianrushi.digg_count }}
+                        </span>
+                        <span>
+                            <i class="far fa-eye"></i>{{ qianrushi.look_count }}
+                        </span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <ul v-show="this_category === 'python'">
+            {% for python in python_list %}
+            <li>
+                <div class="left">
+                    <div>
+                        <img src="{{ python.cover.url.url }}" alt="">
+                    </div>
+                </div>
+                <div class="right">
+                    <h2><a href="/article/{{ python.nid }}/">{{ python.title }}</a></h2>
+                    <p>{{ python.abstract }}</p>
+                    <div class="article_info">
+                        <span>
+                            <i class="far fa-clock"></i>{{ python.create_date|date:'Y-m-d' }}
+                        </span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>{{ python.digg_count }}
+                        </span>
+                        <span>
+                            <i class="far fa-eye"></i>{{ python.look_count }}
+                        </span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            
+        </ul>
+
+        <ul v-show="this_category === 'moyu'">
+            {% for moyu in moyu_list %}
+            <li>
+                <div class="left">
+                    <div>
+                        <img src="{{ moyu.cover.url.url }}" alt="">
+                    </div>
+                </div>
+                <div class="right">
+                    <h2><a href="/article/{{ moyu.nid }}/">{{ moyu.title }}</a></h2>
+                    <p>{{ moyu.abstract }}</p>
+                    <div class="article_info">
+                        <span>
+                            <i class="far fa-clock"></i>{{ moyu.create_date|date:'Y-m-d' }}
+                        </span>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>{{ moyu.digg_count }}
+                        </span>
+                        <span>
+                            <i class="far fa-eye"></i>{{ moyu.look_count }}
+                        </span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

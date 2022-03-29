@@ -1,0 +1,26 @@
+{% extends 'login.html' %}
+
+{% block title %}
+<title>willow博客|注册</title>
+{% endblock %}
+
+{% block from %}
+<div class="xx">
+    <h3>账 号:</h3><input type="text" v-model="sign_form.name" ref="sign_form_name" placeholder="请输入用户名">
+</div>
+<div class="xx">
+    <h3>手 机:</h3><input type="text" v-model="sign_form.phone" ref="sign_form_phone" placeholder="请输入手机号">
+</div>
+<div class="xx">
+    <h3>密 码:</h3><input type="password" v-model="sign_form.pwd" ref="sign_form_pwd" placeholder="请输入密码">
+</div>
+<div class="yzm">
+    <h3>验证码:</h3><input type="text" v-model="sign_form.code" ref="sign_form_code" placeholder="请输入验证码"><img
+        src="/login/random_code/" alt="">
+</div>
+<button @click="">注册</button>
+{% endblock %}
+
+{% block main_title %}
+<a href="/login">登录</a> / <a href="/sign" class="active">注册</a>
+{% endblock %}

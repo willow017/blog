@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+{% load my_tag %}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="shortcut icon" href="/static/jpg/favicon-16x16.ico">
+    {% block css %}
+    <link rel="stylesheet" href="/static/css/index.css">
+    {% endblock %}
+    <link rel="stylesheet" href="/static/css/element.css">
+    <link rel="stylesheet" href="/static/fontawesome-free-5/webfonts/all.min.css">
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/element.js"></script>
+    <title>willow博客</title>
+</head>
+
+<body>
+    <div id="app">
+        <link rel="stylesheet" :href="'/static/css/theme/'+theme+'.css'">
+        <nav>
+            <div class="left">
+                <a href="/">首页</a>
+                <a href="/sort">分类</a>
+                <a href="/message">留言</a>
+                <a href="/about">关于</a>
+            </div>
+            <div class="right">
+                <img v-show="theme === 'light'" src="/static/jpg/lights.svg" @click="setTheme('dark')" alt="">
+                <img v-show="theme === 'dark'" src="/static/jpg/dark.svg" @click="setTheme('light')" alt="">
+
+                {% if request.user.username %}
+                <!-- <a href="">{{ request.user.username }}</a> -->
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                        {{ request.user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item><a href="/backend/">个人中心</a></el-dropdown-item>
+                        <el-dropdown-item><a href="/backend/edit_avatar">修改头像</a></el-dropdown-item>
+                        <el-dropdown-item><a href="/admin/">后台管理</a></el-dropdown-item>
+                        <el-dropdown-item><a href="/logout/">注销退出</a></el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                {% else %}
+                <a href="/login">willow</a>
+                <!-- <a href="/sign">注册</a> -->
+                {% endif %}
+            </div>
+        </nav>
+        {% block banner %}
+        {% banner 'index' %}
+        {% endblock %}
+
+        <main>
+            {% block main %}
+            <div class="main">
+                <div class="left">
+                    <div class="boutique_article card">
+                        <div class="title">
+                            <h2>精选文章</h2>
+                            <div>
+                                <a href="">更多</a>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <ul class="bianchen">
+                                {% for qianduan in qianduan_list %}
+                                <li>
+                                    <div class="left">
+                                        <div>
+                                            <img src="{{ qianduan.cover.url.url }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <h2><a href="/article/{{ qianduan.nid }}">{{ qianduan.title }}</a></h2>
+                                        <p>{{ qianduan.abstract }}</p>
+                                        <span>{{ qianduan.create_date }}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="all_article card">
+                        <div class="title">
+                            <h2>博客文章</h2>
+                        </div>
+                        <div class="body">
+                            <ul>
+                                {% for article in article_list %}
+                                <li>
+                                    <div class="left">
+                                        <div>
+                                            <img src="{{ article.cover.url.url }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <h2><a href="/article/{{ article.nid }}/">{{ article.title }}</a></h2>
+                                        <p>{{ article.abstract }}</p>
+                                        <div class="article_info">
+                                            <span>
+                                                <i class="far fa-clock"></i>{{ article.create_date|date:'Y-m-d' }}
+                                            </span>
+                                            <span>
+                                                <i class="far fa-thumbs-up"></i>{{ article.digg_count }}
+                                            </span>
+                                            <span>
+                                                <i class="far fa-eye"></i>{{ article.look_count }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %} 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="bz card">
+                        <div class="title">
+                            <h2>博主</h2>
+                        </div>
+                        <div class="body">
+                            <div class="left">
+                                <img src="/static/jpg/头像.jpg" alt="">
+                            </div>
+                            <div class="right">
+                                <ul>
+                                    <li>willow</li>
+                                    <li>个人博客</li>
+                                    <li><a href="https://github.com/willow017">willow Github</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rw card">
+                        <div class="title">
+                            <h2>任务</h2>
+                        </div>
+                        <div class="body">
+                            <ul>
+                                <li>爬虫--------所见即所得</li>
+                                <li>嵌入式------所想及所见</li>
+                                <li>网络与安全----杜绝一切</li>
+                                <li>邮箱:3518464701@qq.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="links card">
+                        <div class="title">
+                            <h2>公告</h2>
+                        </div>
+                        <div class="body">
+                            <video id="videoID" width="100%" autoplay loop="loop" >
+                                <source src="/static/video/运转.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </main>
+        <footer>
+            <div class="left">
+                <p class="thank">Thank For</p>
+                <p class="site_info">
+                    <span><img src="/static/jpg/tencent.png" alt="">腾讯云服务器</span>
+                    <span><img src="/static/jpg/qiniu.png" alt="">七牛云存储</span>
+                </p>
+                <p class="version">
+                    <span>version</span>
+                    <span>1.0.0</span>
+                </p>
+                <p>建站日期:2022-3-29</p>
+                <p class="beian">
+                    <a href="https://beian.miit.gov.cn/"><img src="/static/jpg/badges.png" alt="">备案号:黔ICP备2022002543号</a>
+                </p>
+            </div>
+            <div class="right">
+                <div class="contact">
+                    <div>
+                        <img class="png" src="/static/jpg/QQ.png" alt="">
+                        <img class="qq" src="/static/jpg/qqlianjie.jpg" alt="">
+                    </div>
+                    <div>
+                        <a href="https://github.com/willow017" target="_blank"><img class="png"
+                                src="/static/jpg/github.png" alt=""></a>
+                    </div>
+                </div>
+                <p>
+                    联系邮箱:3518464701@qq.com
+                </p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            delimiters: ["[[", "]]"],
+            data: {
+                theme: 'light',
+                this_category: 'qianrushi',
+            },
+            created() {
+                this.init_theme()
+            },
+            methods: {
+                //设置主题
+                setTheme(themeName) {
+                    this.theme = themeName
+                    //持久化存储
+                    localStorage.setItem('theme', themeName)
+                },
+                //选择分类
+                switch_top(categoryName){
+                    this.this_category = categoryName
+                },
+                //初始化主题
+                init_theme() {
+                    //读取存储的主题信息
+                    let theme = localStorage.getItem('theme')
+                    if (theme) {
+                        this.theme = theme
+                    }
+                }
+            }
+        })
+
+        //获取需要轮播的div
+        let img = document.querySelectorAll('.lbt')
+
+        //获取图片数量
+        let length = img.length
+        //初始位置
+        let index = 0
+        let timer = null;
+        clearInterval(timer)
+        timer = setInterval(() => {
+            index++
+            if (index === length) {
+                index = 0
+            }
+            for (let i of img) {
+                i.style.opacity = 0
+            }
+            img[index].style.opacity = 1
+        }, 3000)
+        window.onload = function() {
+            var local1=document.getElementById('videoID');  //获取，函数执行完成后local内存释放
+            local1.autoplay = true; // 自动播放
+            local1.loop = true; // 循环播放
+            local1.muted=true; // 关闭声音，如果为false,视频无法自动播放
+            if(local1.paused){  //判断是否处于暂停状态
+                local1.play();  //开启播放
+            } else {
+                local1.pause();  //停止播放
+            }
+        }
+    </script>
+    {% block js %}
+
+    {% endblock %}
+</body>
+
+</html>
