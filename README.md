@@ -8,5 +8,5 @@
 3、后端使用Python语言作为了主要的开发语言，实现了账户登录、图片验证码的校验和数据上传与展示，使用django中间件实现了数据的传输
 
 项目效果：
-![jpg]([https://github.com/willow017/blog/blob/master/214763_6266ac568be01_thumb.png])
+![png]([https://github.com/willow017/blog/blob/master/214763_6266ac568be01_thumb.png])
 
