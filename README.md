@@ -1,7 +1,7 @@
 
 ## 个人博客
 
-1、该博客采用django框架，前后端分离的项目
+1、该博客采用django框架，前后端分离的项目:computer:
 
 2、前端页面采用了html、css、elementui、vue.js，使用axios实现了与后端的数据传输，动态轮播图的实现
 
